@@ -35,6 +35,19 @@ component fulladder is
     input <= "000";
     wait for 1 ns;
     check(output = "00");
+    wait for 1 ns;
+    input <= "001";
+    wait for 1 ns;
+    check(output = "01");
+    wait for 1 ns;
+    input <= "010";
+    wait for 1 ns;
+    check(output = "01");
+    wait for 1 ns;
+    input <= "110";
+    wait for 1 ns;
+    check(output = "10");
+    wait for 1 ns;
     test_runner_cleanup(runner); -- Simulation ends here
   end process;
 end architecture;

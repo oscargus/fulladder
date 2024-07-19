@@ -11,5 +11,5 @@ end entity;
 architecture rtl of fulladder is
 begin
     s <= a xor b xor cin;
-    cout <= (a and b) or (a and cin) or (a and b);
+    cout <= (a and b) or (a and cin) or (b and cin);
 end architecture;
