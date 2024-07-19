@@ -1,0 +1,36 @@
+name: Tests
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number }}-${{ github.event.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+
+    runs-on: "ubuntu-latest"
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Install GHDL
+      run: |
+        sudo apt-get install ghdl
+    - name: Install VUnit
+      run: |
+        python -m pip install vunit_hdl
+    - name: Run tests
+      run: |
+        cd vhdl
+        python run.py --gtkwave-fmt ghw
