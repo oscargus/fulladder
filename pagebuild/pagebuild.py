@@ -19,7 +19,7 @@ with (html / 'index.html').open(mode='w') as f:
     f.write("<ul>")
     for filename in glob('test_output/**/*.ghw', recursive=True):
         path = Path(filename)
-        url = escape(f"https://oscargus.github.io/fulladder/{filename}")
+        url = escape(f"load_url=https://oscargus.github.io/fulladder/{filename}")
         f.write(f"<li> {filename}: <a href={filename}>Download</a>, <a href=https://app.surfer-project.org/?{url}>Open in Surfer</a></li>\n")
         (html / path.parent).mkdir(parents=True, exist_ok=True)
         shutil.copy(filename, html / filename)
