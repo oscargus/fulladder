@@ -34,3 +34,9 @@ jobs:
       run: |
         cd vhdl
         python run.py --gtkwave-fmt ghw
+        cd ..
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: waveforms
+        path: vhdl/vunit_out/**/*.ghw
