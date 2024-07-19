@@ -9,11 +9,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
   build:
     strategy:
@@ -66,13 +61,11 @@ jobs:
         ls -alrt
         python pagebuild/pagebuild.py
     - name: Upload artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-pages-artifact@v3
       with:
-        name: github-pages
         path: html
   # Deploy job
   deploy:
-    # Add a dependency to the build job
     needs: page-build
 
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
