@@ -24,7 +24,9 @@ with (html / 'index.html').open(mode='w') as f:
         maindir = path.parts[1]
         match = re.search(r"(.+)\.([^.]+)$", maindir)
         if match:
-            f.write(f"<li> Testbench: {match.group(1)}, test: {match.group(2)}. <a href={filename}>Download</a>, <a href=https://app.surfer-project.org/?{url}>Open in Surfer</a></li>\n")
+            tmp_testname = match.group(2)
+            namematch = re.search(r"(.+)_[a-f0-9]+$")
+            f.write(f"<li> Testbench: {match.group(1)}, test: {namematch.group(1)}. <a href={filename}>Download</a>, <a href=https://app.surfer-project.org/?{url}>Open in Surfer</a></li>\n")
         else:
             f.write(f"<li> {maindir}. <a href={filename}>Download</a>, <a href=https://app.surfer-project.org/?{url}>Open in Surfer</a></li>\n")
         (html / path.parent).mkdir(parents=True, exist_ok=True)
