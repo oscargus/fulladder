@@ -26,6 +26,7 @@ jobs:
     - name: Install GHDL
       run: |
         sudo apt-get install ghdl
+        ghdl --version
     - name: Install VUnit
       run: |
         python -m pip install vunit_hdl
