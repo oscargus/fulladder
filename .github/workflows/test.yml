@@ -15,7 +15,6 @@ jobs:
       fail-fast: false
 
     runs-on: "ubuntu-latest"
-    if: always()
     steps:
     - uses: actions/checkout@v4
       with:
@@ -36,11 +35,13 @@ jobs:
         python run.py --gtkwave-fmt ghw -x test.xml
         cd ..
     - name: Upload artifacts
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: waveforms
         path: vhdl/vunit_out/**/*.ghw
     - name: Upload artifacts
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: xml
@@ -49,7 +50,6 @@ jobs:
   page-build:
     needs: build
     runs-on: ubuntu-latest
-    if: always()
     steps:
     - uses: actions/checkout@v4
       with:
@@ -75,10 +75,10 @@ jobs:
       uses: actions/upload-pages-artifact@v3
       with:
         path: html
+
   # Deploy job
   deploy:
     needs: page-build
-    if: always()
 
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
