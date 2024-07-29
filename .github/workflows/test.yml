@@ -44,7 +44,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: xml
-        path: vhdl/vunit_out/test.xml
+        path: vhdl/test.xml
 
   page-build:
     needs: build
