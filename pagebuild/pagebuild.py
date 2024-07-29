@@ -64,9 +64,9 @@ with (html / 'index.html').open(mode='w') as f:
                 f.write(f'{match.group(1)} - {testname} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a>\n')
                 f.write("</li>\n")
             if sysout:
-                f.write("<details>\n") 
+                f.write('<details style="background-color:lightgray">\n') 
                 f.write("<summary>System output</summary>\n")
-                f.write(f"<p><pre>{sysout}</pre></p>\n")
+                f.write(f'<p><pre>\n{sysout}\n</pre></p>\n')
                 f.write("</details>\n") 
         else:
             f.write(f'<li> {maindir} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a></li>\n')
