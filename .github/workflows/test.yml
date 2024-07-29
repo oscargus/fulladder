@@ -11,8 +11,11 @@ on:
 
 jobs:
   build:
-    runs-on: "ubuntu-latest"
+    strategy:
+      fail-fast: false
 
+    runs-on: "ubuntu-latest"
+    if: always()
     steps:
     - uses: actions/checkout@v4
       with:
@@ -45,8 +48,8 @@ jobs:
 
   page-build:
     needs: build
-    if: alwauys()
     runs-on: ubuntu-latest
+    if: always()
     steps:
     - uses: actions/checkout@v4
       with:
@@ -75,7 +78,7 @@ jobs:
   # Deploy job
   deploy:
     needs: page-build
-    if: alwauys()
+    if: always()
 
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
