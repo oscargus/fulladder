@@ -68,6 +68,7 @@ jobs:
     - name: List contents
       run: |
         ls -alrt
+        cat test.xml
         python pagebuild/pagebuild.py
     - name: Upload artifacts
       uses: actions/upload-pages-artifact@v3
