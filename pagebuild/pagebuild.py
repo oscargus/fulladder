@@ -9,7 +9,6 @@ html = Path('html')
 html.mkdir(exist_ok = True)
 
 
-
 with (html / 'index.html').open(mode='w') as f:
     f.write("<!DOCTYPE html>\n")
     f.write("<html>\n")
@@ -28,9 +27,13 @@ with (html / 'index.html').open(mode='w') as f:
             # Get rid of the trailing hash
             tmp_testname = match.group(2)
             namematch = re.search(r"(.+)_[a-f0-9]+$", tmp_testname)
-            f.write(f"<li> Testbench: {match.group(1)}, test: {namematch.group(1)}. <a href={filename}>Download</a>, <a href=https://app.surfer-project.org/?{url}>Open in Surfer</a></li>\n")
+            testname = namematch.group(1)
+            if testname == "all":
+                f.write(f"<li> {match.group(1)}. <a href={filename}>&#11015;</a> <a href=https://app.surfer-project.org/?{url}>&#127940;</a></li>\n")
+            else:
+                f.write(f"<li> {match.group(1)}, test: {testname}. <a href={filename}>&#11015;</a> <a href=https://app.surfer-project.org/?{url}>&#127940;</a></li>\n")
         else:
-            f.write(f"<li> {maindir}. <a href={filename}>Download</a>, <a href=https://app.surfer-project.org/?{url}>Open in Surfer</a></li>\n")
+            f.write(f"<li> {maindir}. <a href={filename}>&#11015;</a> <a href=https://app.surfer-project.org/?{url}>&#127940;</a></li>\n")
         (html / path.parent).mkdir(parents=True, exist_ok=True)
         shutil.copy(filename, html / filename)
     f.write("</ul>\n")
