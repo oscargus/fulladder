@@ -50,6 +50,7 @@ jobs:
   page-build:
     needs: build
     runs-on: ubuntu-latest
+    if: always()
     steps:
     - uses: actions/checkout@v4
       with:
@@ -79,7 +80,7 @@ jobs:
   # Deploy job
   deploy:
     needs: page-build
-
+    if: always()
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
       pages: write      # to deploy to Pages
