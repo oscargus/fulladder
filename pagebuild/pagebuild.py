@@ -29,11 +29,11 @@ with (html / 'index.html').open(mode='w') as f:
             namematch = re.search(r"(.+)_[a-f0-9]+$", tmp_testname)
             testname = namematch.group(1)
             if testname == "all":
-                f.write(f"<li> {match.group(1)}. <a href={filename}>&#11015;</a> <a href=https://app.surfer-project.org/?{url}>&#127940;</a></li>\n")
+                f.write(f'<li> {match.group(1)} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a></li>\n')
             else:
-                f.write(f"<li> {match.group(1)}, test: {testname}. <a href={filename}>&#11015;</a> <a href=https://app.surfer-project.org/?{url}>&#127940;</a></li>\n")
+                f.write(f'<li> {match.group(1)} - {testname} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a></li>\n')
         else:
-            f.write(f"<li> {maindir}. <a href={filename}>&#11015;</a> <a href=https://app.surfer-project.org/?{url}>&#127940;</a></li>\n")
+            f.write(f'<li> {maindir} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a></li>\n')
         (html / path.parent).mkdir(parents=True, exist_ok=True)
         shutil.copy(filename, html / filename)
     f.write("</ul>\n")
