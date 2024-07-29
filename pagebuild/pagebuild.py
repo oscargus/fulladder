@@ -1,5 +1,6 @@
 from glob import glob
 from pathlib import Path
+import re
 import shutil
 from html import escape
 
@@ -20,7 +21,12 @@ with (html / 'index.html').open(mode='w') as f:
     for filename in glob('test_output/**/*.ghw', recursive=True):
         path = Path(filename)
         url = escape(f"load_url=https://oscargus.github.io/fulladder/{filename}")
-        f.write(f"<li> {filename}: <a href={filename}>Download</a>, <a href=https://app.surfer-project.org/?{url}>Open in Surfer</a></li>\n")
+        maindir = path.parts[1]
+        match = re.search(r"(.+)\.([^.]+)$", maindir)
+        if match:
+            f.write(f"<li> Testbench: {match.group(1)}, test: {match.group(2)}. <a href={filename}>Download</a>, <a href=https://app.surfer-project.org/?{url}>Open in Surfer</a></li>\n")
+        else:
+            f.write(f"<li> {maindir}. <a href={filename}>Download</a>, <a href=https://app.surfer-project.org/?{url}>Open in Surfer</a></li>\n")
         (html / path.parent).mkdir(parents=True, exist_ok=True)
         shutil.copy(filename, html / filename)
     f.write("</ul>\n")
