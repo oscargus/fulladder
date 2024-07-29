@@ -24,6 +24,12 @@ def find_sysout(test):
             return child.text
 
 
+def find_failure(test):
+    for child in test:
+        if child.tag == "failure":
+            return child.attrib["message"]
+
+
 with (html / 'index.html').open(mode='w') as f:
     f.write("<!DOCTYPE html>\n")
     f.write("<html>\n")
@@ -31,7 +37,7 @@ with (html / 'index.html').open(mode='w') as f:
     f.write("<title>Simulation wave forms</title>\n")
     f.write("</head>\n")
     f.write("<body>\n")
-    f.write(f"<p>{root.attrib['tests']} test(s) ({root.attrib['failure(s)']} failures, {root.attrib['skipped']} skipped)")
+    f.write(f"<p>{root.attrib['tests']} test(s) ({root.attrib['failures']} failure(s), {root.attrib['skipped']} skipped)")
     f.write("<ul>")
     for filename in glob('test_output/**/*.ghw', recursive=True):
         path = Path(filename)
@@ -47,10 +53,16 @@ with (html / 'index.html').open(mode='w') as f:
             testname = namematch.group(1)
             test = find_test(classname, testname)
             sysout = find_sysout(test)
-            if testname == "all":
-                f.write(f'<li> {match.group(1)} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a></li>\n')
+            failure = find_failure(test)
+            if failure:
+                f.write(f'<li style="background-color:red"> {failure} ')
             else:
-                f.write(f'<li> {match.group(1)} - {testname} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a></li>\n')
+                f.write("<li> ")
+            if testname == "all":
+                f.write(f'{match.group(1)} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a>\n')
+            else:
+                f.write(f'{match.group(1)} - {testname} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a>\n')
+                f.write("</li>\n")
             if sysout:
                 f.write("<details>\n") 
                 f.write("<summary>System output</summary>\n")
