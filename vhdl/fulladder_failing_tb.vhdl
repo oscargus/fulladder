@@ -5,11 +5,11 @@ use vunit_lib.check_pkg.all;
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity fulladder_tb is
+entity fulladder_failing_tb is
   generic (runner_cfg : string);
 end entity;
 
-architecture tb of fulladder_tb is
+architecture tb of fulladder_failing_tb is
 
 component fulladder is
     port (
