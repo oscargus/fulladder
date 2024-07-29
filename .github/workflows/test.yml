@@ -11,12 +11,10 @@ on:
 
 jobs:
   build:
-    strategy:
-      continue-on-error: true
-
     runs-on: "ubuntu-latest"
 
     steps:
+    - continue-on-error: true
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
