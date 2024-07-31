@@ -39,7 +39,7 @@ with (html / 'index.html').open(mode='w') as f:
     f.write("<body>\n")
     f.write(f"<p>{root.attrib['tests']} test(s) ({root.attrib['failures']} failure(s), {root.attrib['skipped']} skipped)")
     f.write("<ul>")
-    for filename in glob('test_output/**/*.ghw', recursive=True):
+    for filename in glob('test_output/**/*.vcd', recursive=True):
         path = Path(filename)
         url = escape(f"load_url=https://oscargus.github.io/fulladder/{filename}")
         maindir = path.parts[1]
@@ -64,10 +64,10 @@ with (html / 'index.html').open(mode='w') as f:
                 f.write(f'{match.group(1)} - {testname} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a>\n')
                 f.write("</li>\n")
             if sysout:
-                f.write('<details style="background-color:lightgray">\n') 
+                f.write('<details style="background-color:lightgray">\n')
                 f.write("<summary>System output</summary>\n")
                 f.write(f'<p><pre>\n{sysout}\n</pre></p>\n')
-                f.write("</details>\n") 
+                f.write("</details>\n")
         else:
             f.write(f'<li> {maindir} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a></li>\n')
         (html / path.parent).mkdir(parents=True, exist_ok=True)

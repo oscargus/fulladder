@@ -33,14 +33,14 @@ jobs:
     - name: Run tests
       run: |
         cd vhdl
-        python run.py --gtkwave-fmt ghw -x test.xml
+        python run.py --gtkwave-fmt vcd -x test.xml
         cd ..
     - name: Upload artifacts
       if: always()
       uses: actions/upload-artifact@v4
       with:
         name: waveforms
-        path: vhdl/vunit_out/**/*.ghw
+        path: vhdl/vunit_out/**/*.vcd
     - name: Upload artifacts
       if: always()
       uses: actions/upload-artifact@v4
