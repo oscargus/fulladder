@@ -38,18 +38,20 @@ with (html / 'index.html').open(mode='w') as f:
         """
 <style>
 .failTest {
-  border: 1px outset red;
+  padding-top: 10px;
+  border: 3px outset red;
   background-color: lightgray;
   width: 800px;  
 }
 .passTest {
-  border: 1px outset green;
+  padding-top: 10px;
+  border: 3px outset green;
   background-color: lightgray;
   width: 800px;  
 }
 .testDetails {
-  overflow-x: scroll;
-  overflow-y: scroll;
+  overflow-x: auto;
+  overflow-y: auto;
   max-height: 100px;
 }
 
@@ -60,7 +62,6 @@ with (html / 'index.html').open(mode='w') as f:
     f.write("</head>\n")
     f.write("<body>\n")
     f.write(f"<p>{root.attrib['tests']} test(s) ({root.attrib['failures']} failure(s), {root.attrib['skipped']} skipped)")
-    f.write("<ul>")
     for filename in glob('test_output/**/*.vcd', recursive=True):
         path = Path(filename)
         url = escape(f"load_url=https://oscargus.github.io/fulladder/{filename}")
@@ -96,6 +97,5 @@ with (html / 'index.html').open(mode='w') as f:
             f.write(f'<div class="passTest"> {maindir} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a></div>\n')
         (html / path.parent).mkdir(parents=True, exist_ok=True)
         shutil.copy(filename, html / filename)
-    f.write("</ul>\n")
     f.write("</body>\n")
     f.write("</html>\n")
