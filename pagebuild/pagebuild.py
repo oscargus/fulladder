@@ -50,7 +50,7 @@ with (html / 'index.html').open(mode='w') as f:
   width: 800px;  
 }
 </style>
-"""
+""")
     
     f.write("<title>Simulation wave forms</title>\n")
     f.write("</head>\n")
