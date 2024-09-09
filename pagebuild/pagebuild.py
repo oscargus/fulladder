@@ -31,20 +31,22 @@ def find_failure(test):
 
 
 with (html / 'index.html').open(mode='w') as f:
-    f.write("<!DOCTYPE html>\n")
-    f.write("<html>\n")
-    f.write("<head>\n")
     f.write(
         """
+<!DOCTYPE html>
+<html>
+<head>
 <style>
 .failTest {
   margin-top: 10px;
+  padding: 2px 2px 2px 2px;
   border: 3px outset red;
   background-color: lightgray;
   width: 800px;  
 }
 .passTest {
   margin-top: 10px;
+  padding: 2px 2px 2px 2px;
   border: 3px outset green;
   background-color: lightgray;
   width: 800px;  
@@ -56,11 +58,10 @@ with (html / 'index.html').open(mode='w') as f:
 }
 
 </style>
+<title>Simulation wave forms</title>
+</head>
+<body>
 """)
-    
-    f.write("<title>Simulation wave forms</title>\n")
-    f.write("</head>\n")
-    f.write("<body>\n")
     f.write(f"<p>{root.attrib['tests']} test(s) ({root.attrib['failures']} failure(s), {root.attrib['skipped']} skipped)")
     for filename in glob('test_output/**/*.vcd', recursive=True):
         path = Path(filename)
