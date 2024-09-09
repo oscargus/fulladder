@@ -40,15 +40,19 @@ with (html / 'index.html').open(mode='w') as f:
 .failTest {
   border: 1px outset red;
   background-color: lightgray;
-  text-align: center;
   width: 800px;  
 }
 .passTest {
   border: 1px outset green;
   background-color: lightgray;
-  text-align: center;
   width: 800px;  
 }
+.testDetails {
+  overflow-x: scroll;
+  overflow-y: scroll;
+  max-height: 100px;
+}
+
 </style>
 """)
     
@@ -81,11 +85,13 @@ with (html / 'index.html').open(mode='w') as f:
             else:
                 f.write(f'{match.group(1)} - {testname} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a>\n')
             if sysout:
-                f.write('<details style="background-color:lightgray">\n')
+                f.write('<div class="testDetails">')
+                f.write('<details>\n')
                 f.write("<summary>System output</summary>\n")
                 f.write(f'<p><pre>\n{sysout}\n</pre></p>\n')
                 f.write("</details>\n")
-            f.write("</div>\n")
+                f.write('</div>\n')
+            f.write('</div>\n')
         else:
             f.write(f'<div class="passTest"> {maindir} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a></div>\n')
         (html / path.parent).mkdir(parents=True, exist_ok=True)
