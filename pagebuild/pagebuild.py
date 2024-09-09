@@ -34,6 +34,24 @@ with (html / 'index.html').open(mode='w') as f:
     f.write("<!DOCTYPE html>\n")
     f.write("<html>\n")
     f.write("<head>\n")
+    f.write(
+        """
+<style>
+.failTest {
+  border: 1px outset red;
+  background-color: lightgray;
+  text-align: center;
+  width: 800px;  
+}
+.passTest {
+  border: 1px outset green;
+  background-color: lightgray;
+  text-align: center;
+  width: 800px;  
+}
+</style>
+"""
+    
     f.write("<title>Simulation wave forms</title>\n")
     f.write("</head>\n")
     f.write("<body>\n")
@@ -55,21 +73,21 @@ with (html / 'index.html').open(mode='w') as f:
             sysout = find_sysout(test)
             failure = find_failure(test)
             if failure:
-                f.write(f'<li style="background-color:red"> {failure} ')
+                f.write(f'<div class="failTest">')
             else:
-                f.write("<li> ")
+                f.write(f'<div class="passTest">')
             if testname == "all":
                 f.write(f'{match.group(1)} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a>\n')
             else:
                 f.write(f'{match.group(1)} - {testname} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a>\n')
-                f.write("</li>\n")
             if sysout:
                 f.write('<details style="background-color:lightgray">\n')
                 f.write("<summary>System output</summary>\n")
                 f.write(f'<p><pre>\n{sysout}\n</pre></p>\n')
                 f.write("</details>\n")
+            f.write("</div>\n")
         else:
-            f.write(f'<li> {maindir} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a></li>\n')
+            f.write(f'<div class="passTest"> {maindir} <a title="Download" href={filename}>&#11015;</a> <a title="Open in Surfer (new tab)" href=https://app.surfer-project.org/?{url} target="_blank">&#127940;</a></div>\n')
         (html / path.parent).mkdir(parents=True, exist_ok=True)
         shutil.copy(filename, html / filename)
     f.write("</ul>\n")
