@@ -38,13 +38,13 @@ with (html / 'index.html').open(mode='w') as f:
         """
 <style>
 .failTest {
-  padding-top: 10px;
+  margin-top: 10px;
   border: 3px outset red;
   background-color: lightgray;
   width: 800px;  
 }
 .passTest {
-  padding-top: 10px;
+  margin-top: 10px;
   border: 3px outset green;
   background-color: lightgray;
   width: 800px;  
